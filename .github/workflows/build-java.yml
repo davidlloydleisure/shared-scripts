@@ -3,7 +3,8 @@ on:
     secrets:
         PACKAGE_REGISTRY_ACCESS_TOKEN:
           required: true
-# delete this file when no longer used  and use build-java-17 instead
+# TODO: delete this file when no longer used and use build-java-17 instead.
+# Such services are currently using this file: member-comms and classes-service
 jobs:
   build:
     name: build
