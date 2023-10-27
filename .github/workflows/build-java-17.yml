@@ -3,8 +3,7 @@ on:
     secrets:
         PACKAGE_REGISTRY_ACCESS_TOKEN:
           required: true
-# TODO: delete this file when no longer used and use build-java-17 instead.
-# Such services are currently using this file: member-comms and classes-service
+
 jobs:
   build:
     name: build
@@ -16,7 +15,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         distribution: 'adopt'
-        java-version: '11'
+        java-version: '17'
         cache: 'maven'
     - name: Run tests
       env:
