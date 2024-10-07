@@ -1,0 +1,28 @@
+on:
+  workflow_call:
+    secrets:
+        PACKAGE_REGISTRY_ACCESS_TOKEN:
+          required: true
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: '21'
+        cache: 'maven'
+    - name: Run tests
+      env:
+        GITHUB_TOKEN: ${{ secrets.PACKAGE_REGISTRY_ACCESS_TOKEN }}
+      run: mvn clean package
+    - name: Publish Test Report
+      uses: mikepenz/action-junit-report@v3
+      if: always() # always run even if the previous step fails
+      with:
+        report_paths: 'target/surefire-reports/TEST-*.xml'
